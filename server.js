@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 3000
 const Workout = require('./models/index.js');
 
 app.use(express.static('public'));
@@ -52,7 +52,7 @@ console.log(req.body.workout);
 });
 
 
-app.listen(port, () =>{
-console.log("listening on PORT" + port) ;
+app.listen(PORT, () =>{
+console.log("listening on PORT" + PORT) ;
 });
 
