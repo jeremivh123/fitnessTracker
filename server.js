@@ -11,7 +11,9 @@ app.use(express.urlencoded({extended: true}));
 
 var MONGODB_URI =  "mongodb://user1:password1@ds147821.mlab.com:47821/heroku_fdksxlkq";
 
-mongoose.connect(MONGODB_URI);
+ var db = mongoose.connect(MONGODB_URI, {
+    useNewUrlParser: true,
+  });
 
 app.get("/", (req,res)=>{
     res.sendFile(__dirname + "/public/index.html")
@@ -49,10 +51,6 @@ console.log(req.body.workout);
 
 app.listen(port, () =>
 console.log("listening on PORT" + port) );
-
-mongoose.connect('mongodb://localhost/fitnessPlans', {useNewUrlParser: true});
-
-var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function(){
     console.log("db connected!")
