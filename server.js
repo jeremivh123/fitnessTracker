@@ -11,7 +11,7 @@ app.use(express.urlencoded({extended: true}));
 
 var MONGODB_URI =  "mongodb://user1:password1@ds147821.mlab.com:47821/heroku_fdksxlkq";
 
- var db = mongoose.connect(MONGODB_URI, {
+mongoose.connect("mongodb://user1:password1@ds147821.mlab.com:47821/heroku_fdksxlkq", {
     useNewUrlParser: true,
   });
 
@@ -49,10 +49,7 @@ console.log(req.body.workout);
 
 
 
-app.listen(port, () =>
-console.log("listening on PORT" + port) );
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function(){
-    console.log("db connected!")
+app.listen(port, () =>{
+console.log("listening on PORT" + port) ;
 });
 
