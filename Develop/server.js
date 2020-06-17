@@ -9,6 +9,10 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/fitnessPlans";
+
+mongoose.connect(MONGODB_URI);
+
 app.get("/", (req,res)=>{
     res.sendFile(__dirname + "/public/index.html")
 });
