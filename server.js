@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 const port = 3000;
-const allWorkouts = require('./models/index.js');
+const Workout = require('./models/index.js');
 
 app.use(express.static('public'));
 
@@ -26,23 +26,28 @@ app.get("/stats", (req,res)=>{
 });
 
 app.get("/api/workouts", (req, res)=>{
-    var workouts = allWorkouts.Workout.find()
-    res.json(workouts);
+  Workout.find().then(dbWorkout=>{
+      res.json(dbWorkout)
+  })
+
+    //res.json(workouts);
 });
 
 app.put("/api/workouts/:id", (req, res) =>{
-    allWorkouts.Workout.update({_id: req.params.id}, {$push: { exercises: req.body.exercise } })
+    Workout.update({_id: req.params.id}, {$push: { exercises: req.body.exercise } })
 });
 
 app.post("/api/workouts", (req, res) =>{
 console.log(req.body.workout);
-    allWorkouts.Workout.create(req.body.workout, function(err,result){
+    Workout.create(req.body.workout, function(err,result){
         if (err){
             res.send(err);
         } else{
             res.send(result);
             
         }
+    }).then(dbWorkout=>{
+        res.json(dbWorkout);
     });
 });
 
